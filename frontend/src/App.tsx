@@ -1,3 +1,4 @@
+import TestTable from './components/Table';
 import { AuthContext } from './context/AuthContext';
 import { useContext } from 'react';
 import AuthPage from './pages/AuthPage';
@@ -14,7 +15,8 @@ const App: React.FC = () => {
   return (
     <div>
       {user ? (
-        <div style={{ textAlign: 'center', padding: '20px' }}>
+        <><TestTable /><div style={{ textAlign: 'center', padding: '20px' }}>
+          
           <h1>Welcome, {user.username}</h1>
           <button
             onClick={logout}
@@ -28,7 +30,7 @@ const App: React.FC = () => {
           >
             Logout
           </button>
-        </div>
+        </div></>
       ) : (
         <AuthPage />
       )}
