@@ -1,5 +1,10 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import { login as loginService, register as registerService } from '../services/authService';
+
+// Import real auth service for production
+import * as authService from '../services/authService';
+
+// Import dummy auth service for development
+import * as dummyAuthService from '../services/dummyAuthService';
 
 interface AuthContextType {
   user: User | null;
@@ -21,36 +26,39 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
 
+  // Use dummy service in development, real service in production
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const authServiceToUse = isDevelopment ? dummyAuthService : authService;
+
   const login = async (username: string, password: string) => {
-    const data = await loginService(username, password);
-    if (data.access_token) {
-      localStorage.setItem('access_token', data.access_token);
-      localStorage.setItem('refresh_token', data.refresh_token);
-      setUser({ username });
-    }
+    await authServiceToUse.login(username, password);
+    setUser({ username });
   };
 
   const register = async (username: string, password: string) => {
-    await registerService(username, password);
+    await authServiceToUse.register(username, password);
   };
 
   const logout = () => {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    authServiceToUse.logout();
     setUser(null);
   };
 
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      // Optionally validate token or fetch user data
-      setUser({ username: 'testuser2' }); // Placeholder, replace with actual user data fetch
+    if (isDevelopment) {
+      setUser(dummyAuthService.getDummyUser());
+    } else {
+      const token = localStorage.getItem('access_token');
+      if (token) {
+        // Normally you'd validate the token here
+        setUser({ username: 'testuser2' });
+      }
     }
-  }, []);
+  }, [isDevelopment]);
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout }}>
-      {children}
-    </AuthContext.Provider>
+      <AuthContext.Provider value={{ user, login, register, logout }}>
+        {children}
+      </AuthContext.Provider>
   );
 };
