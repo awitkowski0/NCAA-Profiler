@@ -1,22 +1,35 @@
-# Stage 1: Build the React app
+# Stage 1: Build the Vite app
 FROM node:20 as build
 
+# Set the working directory in the container
 WORKDIR /app
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
+# Copy package.json and package-lock.json (if available)
 COPY package*.json ./
 
+# Install app dependencies
 RUN npm install
 
-# Bundle app source
+# Copy the rest of the application source code
 COPY . .
 
-# Build your Next.js app for production
+# Build the app for production
 RUN npm run build
 
-EXPOSE 3000
+# Stage 2: Serve the app using a lightweight web server
+FROM node:20-alpine as production
 
-# Start the application
-CMD ["npm", "start"]
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy built files from the previous stage
+COPY --from=build /app/dist ./dist
+
+# Install a simple server to serve the built app
+RUN npm install -g serve
+
+# Expose port 8080
+EXPOSE 8080
+
+# Serve the application
+CMD ["serve", "-s", "dist", "-l", "8080"]

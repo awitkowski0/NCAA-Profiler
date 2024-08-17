@@ -2,6 +2,8 @@ import requests, json
 import os
 
 from fastapi import FastAPI, Depends, HTTPException,status
+from fastapi.middleware.cors import CORSMiddleware
+
 from sqlalchemy.orm import Session
 
 from io import BytesIO
@@ -24,6 +26,14 @@ from utils import create_access_token,create_refresh_token,verify_password,get_h
 load_dotenv()
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],  # Allow your frontend origin
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods, including OPTIONS
+    allow_headers=["*"],  # Allows all headers
+)
 
 #This is the API Token
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")

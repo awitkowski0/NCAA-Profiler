@@ -21,7 +21,7 @@
 
 - ~~Save & Load User Login/Logout~~
 
-- Front-End for Login/Logout
+- ~~Front-End for Login/Logout~~
 
 - Call APIs for Player, Game, Play, Team Information
 
