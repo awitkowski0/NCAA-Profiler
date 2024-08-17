@@ -56,3 +56,9 @@ https://wire.telemetry.fm/ncaa/teams/?team_id=kansas-st
 #### Season Lookup
 
 https://wire.telemetry.fm/ncaa/schedules/by-season/?season=2024
+
+#### Data Rendering
+
+Compared a few different options, AG Grid seems to be the fastest and nicest out-of-the box tabular data viewing
+
+I'd note the best feature here is their quick filter, it could be really useful to quick filter on data if you're looking for specific content

@@ -10,8 +10,11 @@ COPY ./app/requirements.txt /app/requirements.txt
 RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 # Copy all Python files from your local directory to /app in the container
+COPY . /app/
 COPY ./app /app/
 
+
+EXPOSE 89
 
 # Set the command to run the FastAPI app with uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "89", "--reload", "--log-level", "debug"]

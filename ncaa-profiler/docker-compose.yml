@@ -1,9 +1,9 @@
 version: '3.8'
 
 services:
-  app:
+  backend:
     build:
-      context: .
+      context: ./backend
     environment:
       - DATABASE_URL=${DATABASE_URL}
       - ACCESS_TOKEN=${ACCESS_TOKEN}
@@ -13,6 +13,7 @@ services:
       - "89:89"
     depends_on:
       - db
+      - frontend
 
   db:
     image: postgres:13
@@ -25,5 +26,10 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
 
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
 volumes:
   postgres_data:
