@@ -1,4 +1,4 @@
-import requests, json
+import json
 import os
 
 from fastapi import FastAPI, Depends, HTTPException,status
@@ -19,6 +19,7 @@ from auth_bearer import JWTBearer
 
 from functools import wraps
 from utils import create_access_token,create_refresh_token,verify_password,get_hashed_password
+from security import safe_requests
 
 # Load environment variables from .env file
 load_dotenv()
@@ -107,7 +108,7 @@ async def test_api_game():
     query_params: dict = {'game_id': 23596}
     stream = BytesIO()
     chunk_size = 1024 * 5  # 5KB
-    with requests.get(
+    with safe_requests.get(
         'https://wire.telemetry.fm/ncaa/plays/game-id', params=query_params, headers=headers, stream=True
     ) as response:
         for chunk in response.iter_content(chunk_size=chunk_size):  # read in 5KB chunks
