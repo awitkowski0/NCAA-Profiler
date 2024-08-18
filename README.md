@@ -4,18 +4,18 @@
 
 ### Running the project
 
-1) Build docker-image
+1) Create your .env file
 
     
-        docker build -t ncaa/prod .
+        nano .env
 
-2) Run docker-image
+2) Run docker-compose
    
-         docker run --env-file .env -p 89:89 ncaa/prod
+        docker compose --env-file .env up --build
 
 3) Visit site via:
     
-        http://localhost:89
+        http://localhost:8080
 
 ### MVP
 

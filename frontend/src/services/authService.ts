@@ -28,3 +28,10 @@ export const login = async (username: string, password: string): Promise<AuthRes
 
   return response.json();
 };
+
+
+export const logout = () => {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    console.log('Logged out from dummy service');
+};
