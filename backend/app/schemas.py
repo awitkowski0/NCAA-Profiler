@@ -1,3 +1,4 @@
+from typing import Optional
 from pydantic import BaseModel
 import datetime
 
@@ -19,3 +20,22 @@ class TokenCreate(BaseModel):
     refresh_token:str
     status:bool
     created_date:datetime.datetime
+
+class ReportCreate(BaseModel):
+    user_id: str
+    player_id: Optional[str] = None
+    team_id: Optional[str] = None
+    game_id: Optional[str] = None
+    play_id: Optional[str] = None
+    grade: float
+    summary: str
+    notes: Optional[str] = None
+
+
+class Report(ReportCreate):
+    id: int
+    created_at: datetime.datetime
+    updated_at: datetime.datetime
+
+    class Config:
+        orm_mode = True

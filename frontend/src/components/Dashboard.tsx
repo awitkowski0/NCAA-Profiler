@@ -1,5 +1,6 @@
 import React from 'react';
-import { AppBar, Box, CssBaseline, Drawer, List, ListItem, ListItemText, Toolbar, Typography, Container } from '@mui/material';
+import { NavLink } from 'react-router-dom';
+import { Box, CssBaseline, Drawer, List, ListItem, ListItemText, Toolbar, Container } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -8,15 +9,6 @@ const Dashboard: React.FC = () => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}>
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-            Dashboard
-          </Typography>
-          <input type="text" placeholder="Search..." style={{ padding: '8px', borderRadius: '4px', border: '1px solid #ccc', width: '300px' }} />
-        </Toolbar>
-      </AppBar>
-
       <Drawer
         variant="permanent"
         sx={{
@@ -29,8 +21,17 @@ const Dashboard: React.FC = () => {
         <Box sx={{ overflow: 'auto' }}>
           <List>
             {['Home', 'Teams', 'Seasons', 'Reports'].map((text) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
+              <ListItem 
+                button 
+                key={text} 
+                component={NavLink} 
+                to={`/${text.toLowerCase()}`}
+                sx={{ justifyContent: 'center' }} // Center the text within the ListItem
+              >
+                <ListItemText 
+                  primary={text} 
+                  sx={{ textAlign: 'center' }} // Center the text within ListItemText
+                />
               </ListItem>
             ))}
           </List>
@@ -39,9 +40,8 @@ const Dashboard: React.FC = () => {
 
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, marginTop: 8, marginLeft: `${drawerWidth}px` }}
+        sx={{ flexGrow: 1, padding: 3 }} // Remove marginLeft and add padding for spacing
       >
-        <Toolbar />
         <Container>
           <Outlet />
         </Container>

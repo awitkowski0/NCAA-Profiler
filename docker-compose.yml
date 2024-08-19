@@ -8,23 +8,28 @@ services:
       - DATABASE_URL=${DATABASE_URL}
       - ACCESS_TOKEN=${ACCESS_TOKEN}
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
-      - JWT_REFRESH_SECRET_KEY={$JWT_REFRESH_SECRET_KEY}
+      - JWT_REFRESH_SECRET_KEY=${JWT_REFRESH_SECRET_KEY}
     ports:
       - "89:89"
     depends_on:
       - db
-      - frontend
+      - redis
 
   db:
     image: postgres:13
     environment:
       POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin_pass  # Set the superuser password here
+      POSTGRES_PASSWORD: admin_pass
       POSTGRES_DB: ncaa_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
 
   frontend:
     build:

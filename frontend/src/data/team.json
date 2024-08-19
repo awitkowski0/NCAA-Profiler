@@ -1,0 +1,132 @@
+{
+    "_id": "66ad5b687f1d071a41461151",
+    "abbreviation": "KSTATE",
+    "city": "Kansas State",
+    "color_metadata": {
+        "background_color_ref": "#582c83",
+        "dark_color_ref": "#582c83",
+        "foreground_color": "#ffffff",
+        "helmet_color_ref": "#8a8d8f",
+        "jersey_color_ref": "#582c83",
+        "light_color_ref": "#8a8d8f",
+        "primary_color": "#582c83",
+        "secondary_color": "#8a8d8f",
+        "tertiary_color": "#000000"
+    },
+    "display_abbreviation": "KSU",
+    "end_season": 3000,
+    "franchise_id": 199,
+    "groups": [
+        {
+            "end_season": 3000,
+            "heirarchy": [
+                11
+            ],
+            "hierarchy": [
+                11
+            ],
+            "id": 11,
+            "league_id": 2,
+            "name": "FBS",
+            "parent_id": null,
+            "slug": "fbs",
+            "start_season": 2014,
+            "type": "OTHER",
+            "league": "NCAA",
+            "display_order": 10
+        },
+        {
+            "end_season": 3000,
+            "heirarchy": [
+                11,
+                13
+            ],
+            "hierarchy": [
+                11,
+                13
+            ],
+            "id": 13,
+            "league_id": 2,
+            "name": "Power Five",
+            "parent_id": 11,
+            "slug": "power-five",
+            "start_season": 2014,
+            "type": "OTHER",
+            "league": "NCAA",
+            "display_order": 30
+        },
+        {
+            "end_season": 3000,
+            "heirarchy": [
+                11,
+                13,
+                17
+            ],
+            "hierarchy": [
+                11,
+                13,
+                17
+            ],
+            "id": 17,
+            "league_id": 2,
+            "name": "Big 12",
+            "parent_id": 13,
+            "slug": "big-12",
+            "start_season": 1994,
+            "type": "CONF",
+            "league": "NCAA",
+            "display_order": 60
+        }
+    ],
+    "gsis_abbreviation": "KSST",
+    "id": null,
+    "league": "NCAA",
+    "league_id": 2,
+    "mid_abbreviation": "KANSAS ST",
+    "nickname": "Wildcats",
+    "pff_twitter_handle": null,
+    "primary_color": "#582c83",
+    "secondary_color": "#8a8d8f",
+    "slug": "kansas-state-wildcats",
+    "sportradar_id": null,
+    "start_season": 1980,
+    "tertiary_color": "#000000",
+    "tv_abbreviation": "KSU",
+    "twitter_handle": null,
+    "updated_at": "2019-07-25T21:07:16.346255",
+    "team_id": "kansas-st",
+    "csv_conference": "Big 12",
+    "csv_conference_logo": "<img src=\"https://i.turner.ncaa.com/sites/default/files/images/logos/conferences/big-12.40.png\"/>",
+    "csv_team": "Kansas State",
+    "csv_team_logo": "https://i.turner.ncaa.com/sites/default/files/images/logos/schools/bgl/kansas-st.svg",
+    "csv_team_id": 327,
+    "csv_tk": "kansas-st",
+    "csv_ncaaID": 419,
+    "csv_color": "#582C83",
+    "csv_shortname": "Kansas St.",
+    "csv_seoName": "kansas-st",
+    "csv_sixCharAbbr": "KAN ST",
+    "fbs": true,
+    "fcs": false,
+    "group": "Power Five",
+    "power_five": true,
+    "group_of_five": false,
+    "independent": false,
+    "conference": {
+        "fullName": "Big 12",
+        "id": "big-12",
+        "id_number": 17
+    },
+    "division": null,
+    "conferenceAbbr": "Big 12",
+    "level": "FBS",
+    "nick": "Wildcats",
+    "teamId": "199",
+    "teamType": "TEAM",
+    "abbr": "KSU",
+    "cityState": "Kansas State",
+    "fullName": "Kansas State Wildcats",
+    "source": "PFF",
+    "season": 2024,
+    "last_updt_ts": "2024-08-02T22:19:19.858000"
+}

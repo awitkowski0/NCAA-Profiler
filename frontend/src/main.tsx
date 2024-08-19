@@ -5,16 +5,16 @@ import theme from "./theme";
 import { AuthProvider } from "./context/AuthContext";
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import App from "./App";
-import TeamSeasonComponent from "./components/SeasonList";
 import Reports from "./pages/Reports";
 import Home from "./pages/Home";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route path="season/:season" element={<TeamSeasonComponent />} />
       <Route path="home" element={<Home />} />
+      <Route path="/" element={<Home />} />
       <Route path="reports" element={<Reports />} />
+      <Route path="*" element={<App />} /> {/* Handle unknown routes */}
     </Route>
   )
 );
