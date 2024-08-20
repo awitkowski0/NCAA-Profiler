@@ -1,6 +1,8 @@
 from enum import Enum
 from typing import Any, List, TypeVar, Type, Callable, cast
 
+from models.team import Team
+
 
 T = TypeVar("T")
 EnumT = TypeVar("EnumT", bound=Enum)
@@ -1540,6 +1542,7 @@ class SeasonElement:
     season: int
     games: List[Game]
     bye_week: List[int]
+    details: Team
 
     def __init__(self, team: str, season: int, games: List[Game], bye_week: List[int]) -> None:
         self.team = team

@@ -1,5 +1,5 @@
 import React from 'react';
-import SeasonCards from '../components/Table';
+import SeasonCards from '../components/SeasonList';
 
 const Home: React.FC = () => {
   return (

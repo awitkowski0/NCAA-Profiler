@@ -40,8 +40,6 @@ async def get_team_data(team_id: str):
             headers=headers, 
             stream=True
         ) as response:
-
-            logger.info(f"Response Status Code: {response.status_code}")
             if response.status_code != 200:
                 raise HTTPException(status_code=response.status_code, detail=response.text)
 
@@ -122,25 +120,26 @@ async def get_season_data(year: int) -> List[SeasonElement]:
     cached_data = await get_cache(cache_key)
     
     if cached_data:
-        return season_from_dict(json.loads(cached_data))
-    
-    headers = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
-    query_params = {'season': year}
+        season_data = season_from_dict(json.loads(cached_data))
+    else:
+        headers = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
+        query_params = {'season': year}
+        response = requests.get('https://wire.telemetry.fm/ncaa/schedules/by-season/', params=query_params, headers=headers)
+        
+        if response.status_code != 200:
+            raise HTTPException(status_code=response.status_code, detail=response.text)
+        
+        season_data = season_from_dict(response.json())
+        await set_cache(cache_key, json.dumps(season_to_dict(season_data)), 86400 if year == 2024 else None)  # Cache with conditional duration for day data in 2024, if games are being updated
 
-    response = requests.get('https://wire.telemetry.fm/ncaa/schedules/by-season/', params=query_params, headers=headers)
-    if response.status_code != 200:
-        raise HTTPException(status_code=response.status_code, detail=response.text)
-    
-    season_data = season_from_dict(response.json())
-
+    # Fetch and embed team details within each game
     for team in season_data:
-        await get_team_data(team.team)
+        team.details = await get_team_data(team.team)
 
-            
-    if year == 2024:
-        await set_cache(cache_key, json.dumps(season_to_dict(season_data)), 86400)  # Cache for 1 day
-    else:        
-        await set_cache(cache_key, json.dumps(season_to_dict(season_data)))
+        for game in team.games:
+            game.home_team_details = await get_team_data(game.home_team)
+            game.visitor_team_details = await get_team_data(game.visitor_team)
+
     return season_data
 
 async def pre_cache_seasons():
