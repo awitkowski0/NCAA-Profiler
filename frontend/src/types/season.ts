@@ -11,21 +11,21 @@ export interface Season {
     team:    string;
     season:  number;
     games:   Game[];
-    byeWeek: number[];
+    bye_week: number[];
     csv_team_logo: string;
 }
 
 export interface Game {
     week:         number;
-    gameKey:      string;
-    gameID:       string;
-    gameDate:     string;
-    gameTime:     GameTime;
-    visitorTeam:  string;
-    visitorScore: null;
-    homeTeam:     string;
-    homeScore:    null;
-    isHome:       boolean;
+    game_key:      string;
+    game_id:       string;
+    game_data:     string;
+    game_time:     GameTime;
+    visitor_team:  string;
+    visitor_score: null;
+    home_team:     string;
+    home_score:    null;
+    is_home:       boolean;
     result:       null;
 }
 

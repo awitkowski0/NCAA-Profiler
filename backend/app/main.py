@@ -1,18 +1,13 @@
+import asyncio
 from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from services.team_service import get_team_data
 from services.season_service import get_season_data, pre_cache_seasons
 from services.auth_service import register_user, login, get_current_user
 from services.report_service import create_report, get_report, get_reports
 from schemas import ReportCreate, Report
-from database import get_session
 from models.user import User
-
-from models import token_table, report
-
 from database import Base, engine, SessionLocal
-from services.team_service import get_team_data
-from services.season_service import get_season_data, pre_cache_seasons
+from services.season_service import get_season_data, pre_cache_seasons, get_team_data, get_game_data
 from services.auth_service import register_user, login
 import schemas
 
@@ -37,9 +32,7 @@ def get_session():
 
 @app.on_event("startup")
 async def startup_event():
-    # Pre-cache the seasons from 2024 to 2018
-    await pre_cache_seasons()
-
+    asyncio.create_task(pre_cache_seasons())
 
 # Routes
 app.post("/register")(register_user)
@@ -49,6 +42,10 @@ app.post('/login', response_model=schemas.TokenSchema)(login)
 @app.get("/api/team/{team_id}")
 async def get_team(team_id: str):
     return await get_team_data(team_id)
+
+@app.get("/api/game/{game_id}")
+async def get_team(game_id: str):
+    return await get_game_data(game_id)
 
 @app.get("/api/season/{year}")
 async def get_season(year: int):

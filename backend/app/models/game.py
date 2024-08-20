@@ -9,22 +9,18 @@ EnumT = TypeVar("EnumT", bound=Enum)
 
 
 def from_float(x: Any) -> float:
-    assert isinstance(x, (float, int)) and not isinstance(x, bool)
     return float(x)
 
 
 def from_int(x: Any) -> int:
-    assert isinstance(x, int) and not isinstance(x, bool)
     return x
 
 
 def from_str(x: Any) -> str:
-    assert isinstance(x, str)
     return x
 
 
 def from_none(x: Any) -> Any:
-    assert x is None
     return x
 
 
@@ -38,7 +34,6 @@ def from_union(fs, x):
 
 
 def from_bool(x: Any) -> bool:
-    assert isinstance(x, bool)
     return x
 
 
@@ -2397,7 +2392,7 @@ class Stats:
         return result
 
 
-class Game:
+class GameElement:
     id: str
     game_id: int
     play_id: int
@@ -2536,7 +2531,7 @@ class Game:
         self.last_updt_ts = last_updt_ts
 
     @staticmethod
-    def from_dict(obj: Any) -> 'Game':
+    def from_dict(obj: Any) -> 'GameElement':
         assert isinstance(obj, dict)
         id = from_str(obj.get("_id"))
         game_id = from_int(obj.get("game_id"))
@@ -2605,7 +2600,7 @@ class Game:
         te_trio = from_bool(obj.get("te_trio"))
         document_hash = from_str(obj.get("document_hash"))
         last_updt_ts = from_datetime(obj.get("last_updt_ts"))
-        return Game(id, game_id, play_id, pff_gameid, pff_playid, play_number, offense, defense, down, yards_to_go, yardline, ball0, los_telemetry, quarter, game_clock, hash, special_teams, play_clock, play_type, personnel, formation_base, formation_code, receiver_buckets, is_penalty, qb_pos, schedule, situation, presnap_o, presnap_d, play_d, play_o, stats, result, pass_strength, run_strength, skill_r_qty, skill_l_qty, num_backfield, num_tight, num_slot, num_wide, condensed_formation, attached_formation, formation, o_paths, n_in_box, d_paths, field_side, boundary_side, tracking, overlay, sliq_id, sliq_game_id, events, ol_extremes, roster_rb_count, roster_te_count, roster_wr_count, backfield_buckets, n_linemen, te_pair, stacks, bunch, is_scoring, te_trio, document_hash, last_updt_ts)
+        return GameElement(id, game_id, play_id, pff_gameid, pff_playid, play_number, offense, defense, down, yards_to_go, yardline, ball0, los_telemetry, quarter, game_clock, hash, special_teams, play_clock, play_type, personnel, formation_base, formation_code, receiver_buckets, is_penalty, qb_pos, schedule, situation, presnap_o, presnap_d, play_d, play_o, stats, result, pass_strength, run_strength, skill_r_qty, skill_l_qty, num_backfield, num_tight, num_slot, num_wide, condensed_formation, attached_formation, formation, o_paths, n_in_box, d_paths, field_side, boundary_side, tracking, overlay, sliq_id, sliq_game_id, events, ol_extremes, roster_rb_count, roster_te_count, roster_wr_count, backfield_buckets, n_linemen, te_pair, stacks, bunch, is_scoring, te_trio, document_hash, last_updt_ts)
 
     def to_dict(self) -> dict:
         result: dict = {}
@@ -2679,9 +2674,9 @@ class Game:
         return result
 
 
-def game_from_dict(s: Any) -> Game:
-    return Game.from_dict(s)
+def game_from_dict(s: Any) -> List[GameElement]:
+    return from_list(GameElement.from_dict, s)
 
 
-def game_to_dict(x: Game) -> Any:
-    return to_class(Game, x)
+def game_to_dict(x: List[GameElement]) -> Any:
+    return from_list(lambda x: to_class(GameElement, x), x)

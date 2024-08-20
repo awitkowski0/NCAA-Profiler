@@ -117,11 +117,11 @@ const SeasonCards: React.FC = () => {
                 <Collapse in={expandedIndex === index} timeout="auto" unmountOnExit>
                   <List>
                     {season.games.map((game) => (
-                      <React.Fragment key={game.gameID}>
-                        <ListItem button onClick={() => console.log(`Navigate to game ${game.gameID}`)}>
+                      <React.Fragment key={game.game_id}>
+                        <ListItem button onClick={() => console.log(`Navigate to game ${game.game_id}`)}>
                           <ListItemText
-                            primary={`${game.gameDate} - ${game.homeTeam} vs. ${game.visitorTeam}`}
-                            secondary={`Score: ${game.homeScore ?? '-'} - ${game.visitorScore ?? '-'}`}
+                            primary={`${game.game_key} - ${game.home_team} vs. ${game.visitor_team}`}
+                            secondary={`Score: ${game.home_score ?? '-'} - ${game.visitor_score ?? '-'}`}
                           />
                         </ListItem>
                         <Divider />
