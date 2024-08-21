@@ -122,7 +122,7 @@ async def get_player_data(player_id: str):
     await set_cache(cache_key, json.dumps(player_data))
     return player_data
 
-async def get_season_data(year: int) -> List[SeasonElement]:
+async def get_season_data(year: int):
     cache_key = f"season:{year}"
     cached_data = await get_cache(cache_key)
     

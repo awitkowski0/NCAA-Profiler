@@ -37,7 +37,6 @@ export const getGameData = async (gameId: number): Promise<GameDetails> => {
   // Now pass the JSON string to Convert.toPlay
   const originalPlays: Play[] = Convert.toPlay(jsonString);
 
-  // Process JSON data into structured format and sort it
   const plays: PlaySummary[] = originalPlays
     .map((play: Play) => ({
       play: play,
@@ -48,14 +47,14 @@ export const getGameData = async (gameId: number): Promise<GameDetails> => {
       if (a.play.quarter !== b.play.quarter) {
         return a.play.quarter - b.play.quarter;
       }
-      // If quarters are the same, sort by game clock converted to seconds
+      // If quarters are the same, sort by game clock converted to seconds (reverse order)
       return (
-        timeToSeconds(a.play.game_clock) - timeToSeconds(b.play.game_clock)
+        timeToSeconds(b.play.game_clock) - timeToSeconds(a.play.game_clock)
       );
     });
 
   const gameSummary: GameSummary = {
-    totalPlays: plays.length
+    totalPlays: plays.length,
   };
 
   return {

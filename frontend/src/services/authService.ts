@@ -111,3 +111,33 @@ export const createReport = async (reportData: Omit<Report, 'id' | 'user_id' | '
 
   return response.json();
 };
+
+export const updateReport = async (reportId : number, reportData: Omit<Report, 'id' | 'user_id' | 'created_at' | 'updated_at'>) => {
+  const response = await fetch(`/api/reports/${reportId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+    },
+    body: JSON.stringify(reportData),
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to update report');
+  }
+
+  return response.json();
+};
+
+export const deleteReport = async (reportId: number) => {
+  const response = await fetch(`/api/reports/${reportId}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to delete report');
+  }
+};

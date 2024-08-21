@@ -5,7 +5,6 @@ from models.report import Report
 from models.user import User
 from database import get_session
 
-
 def create_report(report: schemas.ReportCreate, user: User, session: Session):
     db_report = Report(**report.dict(), user_id=user.id)
     
