@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
-  Card, CardContent, Typography, Box, Chip, Button, TextField
-} from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { PlaySummary } from '../types/game';
-import { createReport } from '../services/authService'; // Import your report creation service
+  Card,
+  CardContent,
+  Typography,
+  Box,
+  Button,
+  TextField,
+} from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import { PlaySummary } from "../types/game";
+import { createReport } from "../services/authService";
+import { PlayerChip } from "./PlayerChip"; // Import your new PlayerChip component
+import { PlayDescription } from "./PlayDescription";
 
 interface PlayDetailProps {
   playSummary: PlaySummary;
@@ -12,13 +19,13 @@ interface PlayDetailProps {
 }
 
 export const PlayDetail: React.FC<PlayDetailProps> = ({ playSummary }) => {
-  const [showSummary, setShowSummary] = useState(false);
+  const [showDetails, setShowDetails] = useState(false);
   const [showReportForm, setShowReportForm] = useState(false);
-  const [reportNotes, setReportNotes] = useState('');
+  const [reportNotes, setReportNotes] = useState("");
   const [reportSubmitted, setReportSubmitted] = useState(false);
 
-  const handleToggleSummary = () => {
-    setShowSummary(!showSummary);
+  const handleToggleDetails = () => {
+    setShowDetails(!showDetails);
   };
 
   const handleToggleReportForm = () => {
@@ -30,63 +37,76 @@ export const PlayDetail: React.FC<PlayDetailProps> = ({ playSummary }) => {
       await createReport({
         game_id: playSummary.play.game_id,
         play_id: playSummary.play.play_id,
-        summary: 'Play Report',
+        summary: "Play Report",
         grade: 1,
         notes: reportNotes,
       });
       setReportSubmitted(true);
-      alert('Report submitted successfully!');
+      alert("Report submitted successfully!");
     } catch (error) {
-      console.error('Failed to submit report:', error);
-      alert('Failed to submit report');
+      console.error("Failed to submit report:", error);
+      alert("Failed to submit report");
     }
   };
 
-  const getSummaryRows = () => {
-    const summaryEntries = Object.entries(playSummary.play.stats.summary).filter(([_key, value]) => value !== undefined && value !== null);
+  const getDetailRows = () => {
+    const summaryEntries = Object.entries(
+      playSummary.play.stats.summary
+    ).filter(([_key, value]) => value !== undefined && value !== null);
     return summaryEntries.map(([key, value], index) => ({
       id: index,
       field: key,
-      value: Array.isArray(value) ? value.map(v => v.name || v).join(', ') : value.toString(),
+      value: Array.isArray(value)
+        ? value.map((v) => v.name || v).join(", ")
+        : value.toString(),
     }));
   };
 
-  const summaryColumns: GridColDef[] = [
-    { field: 'field', headerName: 'Stat Type', width: 200 },
-    { field: 'value', headerName: 'Value', width: 400 },
+  const detailColumns: GridColDef[] = [
+    { field: "field", headerName: "Stat Type", width: 200 },
+    { field: "value", headerName: "Value", width: 400 },
   ];
 
   return (
     <Card sx={{ marginBottom: 2 }}>
       <CardContent>
         <Typography variant="body1">
-          Q{playSummary.play.quarter} - Game Clock: {playSummary.play.game_clock || 'No description available.'}
+          Q{playSummary.play.quarter} - Game Clock:{" "}
+          {playSummary.play.game_clock || "No description available."}
         </Typography>
-        <Typography variant="body2">Players:</Typography>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-          {playSummary.players?.map((player, playerIndex) => (
-            <Chip key={playerIndex} label={player} />
+        <Box sx={{ marginY: 1 }} />
+        <PlayDescription playSummary={playSummary}/>
+        <Box sx={{ marginY: 1 }} />
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+          Offense: {playSummary.play.offense} -{" "}
+          {playSummary.play.presnap_o?.o_participation_info?.map((player) => (
+            <PlayerChip key={player._id} player={player} />
+          ))}
+        </Box>
+        <Box sx={{ marginY: 1 }} />
+        <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+          Defense: {playSummary.play.defense} -{" "}
+          {playSummary.play.presnap_d?.d_participation_info?.map((player) => (
+            <PlayerChip key={player._id} player={player} />
           ))}
         </Box>
         <Button
           variant="contained"
           color="primary"
-          onClick={handleToggleSummary}
+          onClick={handleToggleDetails}
           sx={{ marginTop: 2 }}
         >
-          {showSummary ? 'Hide Summary' : 'Show Summary'}
+          {showDetails ? "Hide Details" : "Show Details"}
         </Button>
-        {showSummary && (
+        {showDetails && (
           <Box sx={{ marginTop: 2 }}>
-            <Typography variant="h5">Summary for Play</Typography>
+            <Typography variant="h5">Play Details</Typography>
             <Box sx={{ height: 400, marginTop: 2 }}>
-              <DataGrid
-                rows={getSummaryRows()}
-                columns={summaryColumns}
-              />
+              <DataGrid rows={getDetailRows()} columns={detailColumns} />
             </Box>
           </Box>
         )}
+        <Box sx={{ marginX: 1 }} />
         {!reportSubmitted && (
           <>
             <Button
@@ -95,7 +115,7 @@ export const PlayDetail: React.FC<PlayDetailProps> = ({ playSummary }) => {
               onClick={handleToggleReportForm}
               sx={{ marginTop: 2 }}
             >
-              {showReportForm ? 'Cancel Report' : 'Create Report'}
+              {showReportForm ? "Cancel Report" : "Create Report"}
             </Button>
             {showReportForm && (
               <Box sx={{ marginTop: 2 }}>
@@ -109,7 +129,11 @@ export const PlayDetail: React.FC<PlayDetailProps> = ({ playSummary }) => {
                   onChange={(e) => setReportNotes(e.target.value)}
                   sx={{ marginBottom: 2 }}
                 />
-                <Button variant="contained" color="primary" onClick={handleReportSubmit}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleReportSubmit}
+                >
                   Submit Report
                 </Button>
               </Box>

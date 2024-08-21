@@ -18,6 +18,7 @@ export const getTeamData = async (teamId: string): Promise<Team> => {
 
   return response.json();
 };
+
 export const getGameData = async (gameId: number): Promise<GameDetails> => {
   const response = await fetch(`${API_URL}/api/game/${gameId}`, {
     method: "GET",
@@ -36,26 +37,110 @@ export const getGameData = async (gameId: number): Promise<GameDetails> => {
 
   // Now pass the JSON string to Convert.toPlay
   const originalPlays: Play[] = Convert.toPlay(jsonString);
+  const gameSummary: GameSummary = {
+    teamStats: {
+      totalSacks: 0,
+      totalTackles: 0,
+      totalYards: 0,
+    },
+    playerStats: {},
+  };
 
-  const plays: PlaySummary[] = originalPlays
-    .map((play: Play) => ({
+  const plays: PlaySummary[] = originalPlays.map((play: Play) => {
+    const { summary } = play.stats;
+
+    // Aggregate stats for passer
+    if (summary.passer) {
+      const playerId = summary.passer.player_id;
+      if (playerId) {
+        if (!gameSummary.playerStats[playerId]) {
+          gameSummary.playerStats[playerId] = {
+            passingYards: 0,
+            yac: 0,
+            sacks: 0,
+            tackles: 0,
+          };
+        }
+        gameSummary.playerStats[playerId].passingYards +=
+          summary.result_yds || 0;
+      }
+    }
+
+    // Aggregate stats for ball carrier
+    if (summary.ball_carrier) {
+      const playerId = summary.ball_carrier.player_id;
+      if (playerId) {
+        if (!gameSummary.playerStats[playerId]) {
+          gameSummary.playerStats[playerId] = {
+            passingYards: 0,
+            yac: 0,
+            sacks: 0,
+            tackles: 0,
+          };
+        }
+        gameSummary.playerStats[playerId].yac += summary.yards_after_catch || 0;
+      }
+    }
+
+    // Aggregate stats for sack
+    if (summary.sack_by) {
+      const playerId = summary.sack_by.player_id;
+      if (playerId) {
+        if (!gameSummary.playerStats[playerId]) {
+          gameSummary.playerStats[playerId] = {
+            passingYards: 0,
+            yac: 0,
+            sacks: 0,
+            tackles: 0,
+          };
+        }
+        gameSummary.playerStats[playerId].sacks += 1;
+        gameSummary.teamStats.totalSacks += 1;
+      }
+    }
+
+    // Aggregate stats for tackles
+    if (summary.tackle_by) {
+      const playerId = summary.tackle_by.player_id;
+      if (playerId) {
+        if (!gameSummary.playerStats[playerId]) {
+          gameSummary.playerStats[playerId] = {
+            passingYards: 0,
+            yac: 0,
+            sacks: 0,
+            tackles: 0,
+          };
+        }
+        gameSummary.playerStats[playerId].tackles += 1;
+        gameSummary.teamStats.totalTackles += 1;
+      }
+    }
+
+    // Handle assist tackles
+    if (summary.tackle_assist_by) {
+      summary.tackle_assist_by.forEach((player) => {
+        const playerId = player._id;
+        if (playerId) {
+          if (!gameSummary.playerStats[playerId]) {
+            gameSummary.playerStats[playerId] = {
+              passingYards: 0,
+              yac: 0,
+              sacks: 0,
+              tackles: 0,
+            };
+          }
+          gameSummary.playerStats[playerId].tackles += 0.5; // Assuming half a tackle for assists
+          gameSummary.teamStats.totalTackles += 0.5;
+        }
+      });
+    }
+
+    // Return the play summary
+    return {
       play: play,
       players: extractPlayersFromPlay(play),
-    }))
-    .sort((a, b) => {
-      // First, sort by quarter
-      if (a.play.quarter !== b.play.quarter) {
-        return a.play.quarter - b.play.quarter;
-      }
-      // If quarters are the same, sort by game clock converted to seconds (reverse order)
-      return (
-        timeToSeconds(b.play.game_clock) - timeToSeconds(a.play.game_clock)
-      );
-    });
-
-  const gameSummary: GameSummary = {
-    totalPlays: plays.length,
-  };
+    };
+  });
 
   return {
     summary: gameSummary,
@@ -86,11 +171,6 @@ function extractPlayersFromPlay(play: Play): string[] {
 
   // Convert the set of player names back to an array
   return Array.from(players);
-}
-
-function timeToSeconds(time: string): number {
-  const [minutes, seconds] = time.split(":").map(Number);
-  return minutes * 60 + seconds;
 }
 
 export const getSeasonData = async (year: number): Promise<Season[]> => {

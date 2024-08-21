@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Button, Grid, TextField, Typography, Box, Paper, InputAdornment, TableContainer, Table, TableHead, TableRow, TableCell, TableBody
+  Button, Grid, TextField, Typography, Box, Paper, InputAdornment
 } from '@mui/material';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getGameData } from '../services/gameService';
@@ -9,6 +9,7 @@ import { createReport } from '../services/authService';
 import SearchIcon from '@mui/icons-material/Search';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import PlayDetail from './PlayDetail';
+import GameSummaryGrid from './GameSummaryCard';
 
 export const GameComponent: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
@@ -91,21 +92,8 @@ export const GameComponent: React.FC = () => {
       )}
 
       <Grid item xs={12}>
-        <Typography variant="h5">Game Statistics</Typography>
-        {gameData ? (
-          <TableContainer component={Paper} sx={{ marginTop: 2 }}>
-            <Table aria-label="summary table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Stat Type</TableCell>
-                  <TableCell>Value</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {/* Render specific summary data here */}
-              </TableBody>
-            </Table>
-          </TableContainer>
+        {gameData?.summary ? (
+          <GameSummaryGrid gameSummary={gameData.summary}/>
         ) : (
           <Typography>Loading game data...</Typography>
         )}
