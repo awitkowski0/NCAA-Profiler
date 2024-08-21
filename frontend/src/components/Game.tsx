@@ -1,24 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
-  Button, Grid, TextField, Typography, Box, Paper, InputAdornment
-} from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getGameData } from '../services/gameService';
-import { GameDetails, PlaySummary } from '../types/game';
-import { createReport } from '../services/authService';
-import SearchIcon from '@mui/icons-material/Search';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import PlayDetail from './PlayDetail';
-import GameSummaryGrid from './GameSummaryCard';
+  Button,
+  Grid,
+  TextField,
+  Typography,
+  Box,
+  Paper,
+  InputAdornment,
+} from "@mui/material";
+import { useParams, useNavigate } from "react-router-dom";
+import { getGameData } from "../services/gameService";
+import { GameDetails, PlaySummary } from "../types/game";
+import { createReport } from "../services/authService";
+import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
+import PlayDetail from "./PlayDetail";
+import GameSummaryGrid from "./GameSummaryCard";
+import { Report } from "../types/reports";
 
 export const GameComponent: React.FC = () => {
   const { gameId } = useParams<{ gameId: string }>();
   const navigate = useNavigate();
   const [gameData, setGameData] = useState<GameDetails | null>(null);
   const [_error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState("");
   const [showReportForm, setShowReportForm] = useState(false);
-  const [reportNotes, setReportNotes] = useState('');
+  const [reportNotes, setReportNotes] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,14 +40,14 @@ export const GameComponent: React.FC = () => {
     fetchData();
   }, [gameId]);
 
-  const filteredPlays = gameData?.plays.filter((playSummary: PlaySummary) => 
-    playSummary.players?.some((player: string) => 
+  const filteredPlays = gameData?.plays.filter((playSummary: PlaySummary) =>
+    playSummary.players?.some((player: string) =>
       player.toLowerCase().includes(searchTerm.toLowerCase())
     )
   );
 
   const handleBackClick = () => {
-    navigate('/season/');
+    navigate("/season/");
   };
 
   const handleCreateReportClick = () => {
@@ -49,23 +56,46 @@ export const GameComponent: React.FC = () => {
 
   const handleReportSubmit = async () => {
     try {
-      await createReport({ game_id: Number(gameId), summary: 'Game Report', grade: 1, notes: reportNotes });
-      alert('Report submitted successfully!');
+      const report: Report = {
+        player_id: "",
+        team_id: "",
+        game_id: Number(gameId),
+        play_id: 0,
+        grade: 0,
+        summary: "",
+        notes: reportNotes,
+      };
+
+      await createReport(report);
+      alert("Report submitted successfully!");
       setShowReportForm(false);
-      setReportNotes('');
+      setReportNotes("");
     } catch (error) {
-      console.error('Failed to submit report:', error);
-      alert('Failed to submit report');
+      console.error("Failed to submit report:", error);
+      alert("Failed to submit report");
     }
   };
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between' }}>
-        <Button variant="contained" color="primary" onClick={handleBackClick} sx={{ marginRight: 2 }}>
+      <Grid
+        item
+        xs={12}
+        sx={{ display: "flex", justifyContent: "space-between" }}
+      >
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleBackClick}
+          sx={{ marginRight: 2 }}
+        >
           Back to Season List
         </Button>
-        <Button variant="contained" color="primary" onClick={handleCreateReportClick}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleCreateReportClick}
+        >
           Create Game Report
         </Button>
       </Grid>
@@ -84,7 +114,11 @@ export const GameComponent: React.FC = () => {
               onChange={(e) => setReportNotes(e.target.value)}
               sx={{ marginBottom: 2 }}
             />
-            <Button variant="contained" color="primary" onClick={handleReportSubmit}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleReportSubmit}
+            >
               Submit Report
             </Button>
           </Paper>
@@ -93,19 +127,19 @@ export const GameComponent: React.FC = () => {
 
       <Grid item xs={12}>
         {gameData?.summary ? (
-          <GameSummaryGrid gameSummary={gameData.summary}/>
+          <GameSummaryGrid gameSummary={gameData.summary} />
         ) : (
           <Typography>Loading game data...</Typography>
         )}
       </Grid>
       <Grid item xs={12}>
-        <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: 2 }}>
+        <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
           <TextField
             fullWidth
             label="Search by Player"
             variant="outlined"
             value={searchTerm}
-            onChange={e => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -124,11 +158,12 @@ export const GameComponent: React.FC = () => {
       <Grid item xs={12}>
         <Typography variant="h6">Plays</Typography>
         <Grid container spacing={2}>
-          {filteredPlays && filteredPlays.map((playSummary, index) => (
-            <Grid item xs={12} key={index}>
-              <PlayDetail playSummary={playSummary} index={index} />
-            </Grid>
-          ))}
+          {filteredPlays &&
+            filteredPlays.map((playSummary, index) => (
+              <Grid item xs={12} key={index}>
+                <PlayDetail playSummary={playSummary} index={index} />
+              </Grid>
+            ))}
         </Grid>
       </Grid>
     </Grid>

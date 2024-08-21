@@ -24,11 +24,12 @@ class TokenCreate(BaseModel):
     status:bool
     created_date:datetime.datetime
 
+
 class ReportCreate(BaseModel):
     player_id: Optional[str] = None
     team_id: Optional[str] = None
-    game_id: Optional[str] = None
-    play_id: Optional[str] = None
+    game_id: Optional[int] = None
+    play_id: Optional[int] = None
     grade: Optional[float] = None
     summary: Optional[str] = None
     notes: Optional[str] = None

@@ -95,8 +95,10 @@ export const getReportById = async (reportId: number): Promise<Report> => {
 };
 
 
-export const createReport = async (reportData: Omit<Report, 'id' | 'user_id' | 'created_at' | 'updated_at'>): Promise<Report> => {
-  const response = await fetch(`${API_URL}/api/reports/`, {
+export const createReport = async (
+  reportData: Omit<Report, 'id' | 'user_id' | 'created_at' | 'updated_at'>
+  ) => {
+  const response = await fetch(`${API_URL}/api/create_report/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -112,8 +114,10 @@ export const createReport = async (reportData: Omit<Report, 'id' | 'user_id' | '
   return response.json();
 };
 
-export const updateReport = async (reportId : number, reportData: Omit<Report, 'id' | 'user_id' | 'created_at' | 'updated_at'>) => {
-  const response = await fetch(`/api/reports/${reportId}`, {
+export const updateReport = async (
+  reportId : number, reportData: Omit<Report, 'id' | 'user_id' | 'created_at' | 'updated_at'>
+  ) => {
+  const response = await fetch(`${API_URL}/api/update_report/${reportId}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
@@ -130,7 +134,7 @@ export const updateReport = async (reportId : number, reportData: Omit<Report, '
 };
 
 export const deleteReport = async (reportId: number) => {
-  const response = await fetch(`/api/reports/${reportId}`, {
+  const response = await fetch(`${API_URL}/api/delete_report/${reportId}`, {
     method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${localStorage.getItem('access_token')}`,

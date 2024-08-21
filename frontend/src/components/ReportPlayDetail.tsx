@@ -4,14 +4,11 @@ import {
   CardContent,
   Typography,
   Box,
-  Button,
-  TextField,
+  Button
 } from "@mui/material";
 import { PlaySummary } from "../types/game";
-import { createReport } from "../services/authService";
 import { PlayerChip } from "./PlayerChip";
 import { PlayDescription } from "./PlayDescription";
-import { Report } from "../types/reports";
 
 interface PlayDetailProps {
   playSummary: PlaySummary;
@@ -20,37 +17,12 @@ interface PlayDetailProps {
 
 export const PlayDetail: React.FC<PlayDetailProps> = ({ playSummary }) => {
   const [showDetails, setShowDetails] = useState(false);
-  const [showReportForm, setShowReportForm] = useState(false);
-  const [reportNotes, setReportNotes] = useState("");
-  const [reportSubmitted, setReportSubmitted] = useState(false);
 
   const handleToggleDetails = () => {
     setShowDetails(!showDetails);
   };
 
-  const handleToggleReportForm = () => {
-    setShowReportForm(!showReportForm);
-  };
 
-  const handleReportSubmit = async () => {
-    try {
-
-      const report: Report = {
-        team_id: "",
-        game_id: playSummary.play.game_id,
-        play_id: playSummary.play.play_id,
-        grade: 0,
-        summary: "",
-        notes: reportNotes,
-      };
-      await createReport(report);
-      setReportSubmitted(true);
-      alert("Report submitted successfully!");
-    } catch (error) {
-      console.error("Failed to submit report:", error);
-      alert("Failed to submit report");
-    }
-  };
 
   return (
     <Card sx={{ marginBottom: 2 }}>
@@ -89,39 +61,6 @@ export const PlayDetail: React.FC<PlayDetailProps> = ({ playSummary }) => {
           </Box>
         )}
         <Box sx={{ marginX: 1 }} />
-        {!reportSubmitted && (
-          <>
-            <Button
-              variant="outlined"
-              color="secondary"
-              onClick={handleToggleReportForm}
-              sx={{ marginTop: 2 }}
-            >
-              {showReportForm ? "Cancel Report" : "Create Report"}
-            </Button>
-            {showReportForm && (
-              <Box sx={{ marginTop: 2 }}>
-                <TextField
-                  fullWidth
-                  label="Report Notes"
-                  variant="outlined"
-                  multiline
-                  rows={4}
-                  value={reportNotes}
-                  onChange={(e) => setReportNotes(e.target.value)}
-                  sx={{ marginBottom: 2 }}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleReportSubmit}
-                >
-                  Submit Report
-                </Button>
-              </Box>
-            )}
-          </>
-        )}
       </CardContent>
     </Card>
   );

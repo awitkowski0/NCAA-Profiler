@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
 from services.season_service import get_season_data, pre_cache_seasons
 from services.auth_service import register_user, login, get_current_user
-from services.report_service import create_report, get_report, get_reports
+from services.report_service import create_report, get_report, get_reports, update_report, delete_report
 from schemas import Report, UserResponse
 
 from models.user import User
@@ -60,34 +60,22 @@ def list_user_reports(user: User = Depends(get_current_user), session: Session =
     return get_reports(user, session)
 
 @app.get("/api/reports/{report_id}", response_model=Report)
-def get_user_report(report_id: int, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+def get_user_reports(report_id: int, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
     return get_report(report_id, user, session)
 
-@app.post("/api/reports/", response_model=schemas.Report)
-def create_user_report(report: schemas.ReportCreate, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+@app.post("/api/create_report/", response_model=schemas.Report)
+def create_user_reports(report: schemas.ReportCreate, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
     return create_report(report, user, session)
 
 
-@app.put("/api/reports/{report_id}", response_model=schemas.Report)
-def update_report(report_id: int, report: schemas.ReportCreate, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
-    db_report = get_report(report_id, user, session)
-    if db_report:
-        for key, value in report.dict(exclude_unset=True).items():
-            setattr(db_report, key, value)
-        session.commit()
-        session.refresh(db_report)
-        return db_report
-    raise HTTPException(status_code=404, detail="Report not found")
+@app.put("/api/update_report/{report_id}", response_model=schemas.Report)
+def update_reports(report_id: int, report: schemas.ReportCreate, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+    return update_report(report_id, report, user, session)
 
 
-@app.delete("/reports/{report_id}")
-def delete_report(report_id: int, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
-    db_report = get_report(report_id, user, session)
-    if db_report:
-        session.delete(db_report)
-        session.commit()
-        return {"message": "Report deleted successfully"}
-    raise HTTPException(status_code=404, detail="Report not found")
+@app.delete("/api/delete_report/{report_id}")
+def delete_reports(report_id: int, user: User = Depends(get_current_user), session: Session = Depends(get_session)):
+    return delete_report(report_id, user, session)
 
 
 @app.post("/api/validate_token", response_model=UserResponse)

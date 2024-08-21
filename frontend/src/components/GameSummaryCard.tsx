@@ -42,9 +42,6 @@ export const GameSummaryGrid: React.FC<GameSummaryGridProps> = ({
           Game Summary
         </Typography>
         <Box sx={{ height: 400, width: "100%", marginTop: 2 }}>
-          <Typography variant="h6" sx={{ marginBottom: 4 }}>
-            Player Details
-          </Typography>
           <DataGrid
             rows={playerDetailRows}
             columns={playerDetailColumns}

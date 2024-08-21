@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getReportById, updateReport, deleteReport } from '../services/authService';
 import { Report } from '../types/reports';
@@ -11,6 +11,7 @@ import {
   Grid,
   Container,
 } from '@mui/material';
+import ReportingGameComponent from './ReportingGame';
 
 const ReportDetail = () => {
   const { reportId } = useParams<{ reportId: string }>();
@@ -159,7 +160,6 @@ const ReportDetail = () => {
         ) : (
           <Box sx={{ mt: 2 }}>
             <Typography variant="body1"><strong>Player ID:</strong> {report.player_id}</Typography>
-            <Typography variant="body1"><strong>Team ID:</strong> {report.team_id}</Typography>
             <Typography variant="body1"><strong>Game ID:</strong> {report.game_id}</Typography>
             <Typography variant="body1"><strong>Play ID:</strong> {report.play_id}</Typography>
             <Typography variant="body1"><strong>Grade:</strong> {report.grade}</Typography>
@@ -176,6 +176,11 @@ const ReportDetail = () => {
           </Button>
         </Box>
       </Paper>
+      {report.game_id && (
+        <Box sx={{ marginTop: 4 }}>
+          <ReportingGameComponent gameId={report.game_id as unknown as string}  />
+        </Box>
+      )}
     </Container>
   );
 };
