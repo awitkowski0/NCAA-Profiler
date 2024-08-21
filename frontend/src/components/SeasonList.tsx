@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   Card,
   CardContent,
@@ -15,16 +16,18 @@ import {
   Divider,
   Box,
 } from "@mui/material";
-import { getSeasonData } from "../services/seasonService";
+import { getSeasonData } from "../services/gameService";
 import { Season } from "../types/season";
 
 const SeasonCards: React.FC = () => {
+  const { year, team } = useParams<{ year: string; team?: string }>();
+  const navigate = useNavigate();
   const [seasons, setSeasons] = useState<Season[]>([]);
   const [filteredSeasons, setFilteredSeasons] = useState<Season[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [searchTerm, setSearchTerm] = useState<string>("");
-  const [selectedYear, setSelectedYear] = useState<number>(2024);
+  const [searchTerm, setSearchTerm] = useState<string>(team ? decodeURIComponent(team) : "");
+  const [selectedYear, setSelectedYear] = useState<number>(Number(year ? team : 2023));
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -46,8 +49,9 @@ const SeasonCards: React.FC = () => {
 
   useEffect(() => {
     const filtered = seasons.filter(
-      (season) => season.team.toLowerCase().includes(searchTerm.toLowerCase()) &&
-                  season.season === selectedYear
+      (season) =>
+        season.team.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        season.season === selectedYear
     );
     setFilteredSeasons(filtered);
   }, [searchTerm, selectedYear, seasons]);
@@ -58,14 +62,17 @@ const SeasonCards: React.FC = () => {
     return decodedUrl.replace(/<img src="([^"]+)".*>/, "$1");
   }
 
-  const handleExpandClick = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
-  };
-
   const calculateRecord = (games: any[]) => {
     const wins = games.filter((game) => game.result === "W").length;
     const losses = games.filter((game) => game.result === "L").length;
     return `${wins} - ${losses}`;
+  };
+  const handleExpandClick = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
+  };
+
+  const handleGameClick = (gameId: number) => {
+    navigate(`/game/${gameId}`);
   };
 
   if (loading) {
@@ -136,14 +143,14 @@ const SeasonCards: React.FC = () => {
                   <List>
                     {season.games.map((game) => (
                       <React.Fragment key={game.game_id}>
-                        <ListItem>
+                        <ListItem button onClick={() => handleGameClick(game.game_id)}>
                           <Box
                             display="flex"
                             justifyContent="space-between"
                             alignItems="center"
                             width="100%"
                           >
-                            <Box flex={1} textAlign="left"> {/* Home team on the left */}
+                            <Box flex={1} textAlign="left">
                               <img
                                 src={cleanUrl(game.home_team_details?.csv_team_logo || "")}
                                 alt="Home Team Logo"
@@ -157,7 +164,7 @@ const SeasonCards: React.FC = () => {
                               </Typography>
                             </Box>
 
-                            <Box flex={1} textAlign="center"> {/* VS centered */}
+                            <Box flex={1} textAlign="center">
                               <Typography variant="h6" fontWeight="bold">
                                 VS
                               </Typography>
@@ -166,7 +173,7 @@ const SeasonCards: React.FC = () => {
                               </Typography>
                             </Box>
 
-                            <Box flex={1} textAlign="right"> {/* Visitor team on the right */}
+                            <Box flex={1} textAlign="right">
                               <img
                                 src={cleanUrl(game.visitor_team_details?.csv_team_logo || "")}
                                 alt="Visitor Team Logo"

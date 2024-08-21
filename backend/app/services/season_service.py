@@ -61,23 +61,20 @@ async def get_team_data(team_id: str):
         logger.error(f"Unexpected error: {exc}")
         raise HTTPException(status_code=500, detail=str(exc))
 
-async def get_game_data(game_id: str):
+async def get_game_data(game_id: int):
     cache_key = f"game:{game_id}"
-    
-    # Check for cached data
     cached_data = await get_cache(cache_key)
 
-    if cached_data and cached_data != None:
+    if cached_data:
         try:
             return json.loads(cached_data)
         except json.JSONDecodeError as json_exc:
             logger.warning(f"JSONDecodeError while decoding cached data for team ID: {game_id}. Proceeding to fetch fresh data.")
     
-    # If cache miss, fetch data from the API
     headers = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
     query_params = {'game_id': game_id}
     stream = BytesIO()
-    chunk_size = 1024 * 5  # 5KB
+    chunk_size = 1024 * 8  # 8KB
     
     with requests.get(
         'https://wire.telemetry.fm/ncaa/plays/game-id', 
@@ -89,12 +86,22 @@ async def get_game_data(game_id: str):
             stream.write(chunk)
     
     stream.seek(0)
-    data = json.load(stream)
+    game_data = json.load(stream)
+
+    # Delete bulky path data
+    for item in game_data:
+        if 'overlay' in item and 'pixel_paths' in item['overlay']:
+            del item['overlay']['pixel_paths']
+        if 'return_paths' in item:
+            del item['return_paths']
+        if 'd_paths' in item:
+            del item['d_paths']
+        if 'kick_paths' in item:
+            del item['kick_paths']
+
+    await set_cache(cache_key, json.dumps(game_data))
     
-    # Cache the data as a JSON string
-    await set_cache(cache_key, str(data))
-    
-    return data
+    return game_data
 
 
 async def get_player_data(player_id: str):
@@ -143,6 +150,6 @@ async def get_season_data(year: int) -> List[SeasonElement]:
     return season_data
 
 async def pre_cache_seasons():
-    #await clear_all_cache()
+    #await clear_all_cache() - if you need to clear cache on a run, changed data maybe?
     for year in range(2018, 2025):
         await get_season_data(year)

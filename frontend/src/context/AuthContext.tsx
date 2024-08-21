@@ -3,9 +3,6 @@ import { createContext, useState, useEffect, ReactNode } from 'react';
 // Import real auth service for production
 import * as authService from '../services/authService';
 
-// Import dummy auth service for development
-import * as dummyAuthService from '../services/dummyAuthService';
-
 interface AuthContextType {
   user: User | null;
   login: (username: string, password: string) => Promise<void>;
@@ -26,12 +23,12 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // Use dummy service in development, real service in production
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  const authServiceToUse = isDevelopment ? dummyAuthService : authService;
+  const authServiceToUse = authService;
 
   const login = async (username: string, password: string) => {
-    await authServiceToUse.login(username, password);
+    const response = await authServiceToUse.login(username, password);
+    localStorage.setItem('access_token', response.access_token);
+    localStorage.setItem('refresh_token', response.refresh_token);
     setUser({ username });
   };
 
@@ -45,20 +42,29 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   };
 
   useEffect(() => {
-    if (isDevelopment) {
-      setUser(dummyAuthService.getDummyUser());
-    } else {
+    const checkToken = async () => {
       const token = localStorage.getItem('access_token');
       if (token) {
-        // Normally you'd validate the token here
-        setUser({ username: 'testuser2' });
+        try {
+          const validatedUser = await authServiceToUse.validateToken(token);
+          if (validatedUser) {
+            setUser(validatedUser);
+          } else {
+            logout(); // Clear invalid token
+          }
+        } catch (error) {
+          console.error('Token validation failed', error);
+          logout();
+        }
       }
-    }
-  }, [isDevelopment]);
+    };
+
+    checkToken();
+  }, []);
 
   return (
-      <AuthContext.Provider value={{ user, login, register, logout }}>
-        {children}
-      </AuthContext.Provider>
+    <AuthContext.Provider value={{ user, login, register, logout }}>
+      {children}
+    </AuthContext.Provider>
   );
 };

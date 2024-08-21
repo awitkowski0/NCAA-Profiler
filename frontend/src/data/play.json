@@ -1,0 +1,289 @@
+[
+  {
+    "_id": "24136_5047599",
+    "game_id": 24136,
+    "play_id": 5047599,
+    "play_number": 3878,
+    "down": 0,
+    "yards_to_go": 0,
+    "yardline": "GATECH 35",
+    "quarter": 4,
+    "game_clock": "08:08",
+    "hash": "L",
+    "special_teams": true,
+    "play_clock": 7,
+    "play_type": "KICKOFF",
+    "is_penalty": false,
+    "schedule": {
+      "game_date": "09/01/2023",
+      "game_key": "400108",
+      "season": 2023,
+      "week": 1,
+      "season_type": "REG",
+      "home": "GATC",
+      "visitor": "KYLO"
+    },
+    "situation": {
+      "garbage_time": 0,
+      "two_minute": 0,
+      "score_differential": -1,
+      "time_remaining_qtr": 8.13,
+      "time_remaining_half": 8.13,
+      "time_remaining_game": 8.13,
+      "drive": {
+        "play_in_game": 141,
+        "score": {
+          "poss_score_diff": -1,
+          "scoreboard": { "obj1": 29, "obj2": 28 }
+        }
+      }
+    },
+    "presnap_st": { "num_cbs": 0, "num_vise_on_play": 0 },
+    "play_st": {
+      "hang_time": 4.11,
+      "kick_participation": [
+        "FRI76668",
+        "GUE83806",
+        "FRA97132",
+        "WIL122732",
+        "CRA144151",
+        "EDW144153",
+        "HAM144157",
+        "REI144174",
+        "KEL156311",
+        "TUR156329",
+        "CLA174698"
+      ],
+      "kick_participation_info": [
+        {
+          "_id": "FRI76668",
+          "jersey": 13,
+          "pos_group": "DB",
+          "position": "CB",
+          "short_name": "G.Frierson"
+        },
+        {
+          "_id": "GUE83806",
+          "jersey": 23,
+          "pos_group": "RB",
+          "position": "HB",
+          "short_name": "I.Guerendo"
+        },
+        {
+          "_id": "FRA97132",
+          "jersey": 28,
+          "pos_group": "DB",
+          "position": "CB",
+          "short_name": "T.Franklin"
+        },
+        {
+          "_id": "WIL122732",
+          "jersey": 15,
+          "pos_group": "LB",
+          "position": "LB",
+          "short_name": "K.Wilson"
+        },
+        {
+          "_id": "CRA144151",
+          "jersey": 32,
+          "pos_group": "LB",
+          "position": "LB",
+          "short_name": "R.Craig"
+        },
+        {
+          "_id": "EDW144153",
+          "jersey": 30,
+          "pos_group": "DB",
+          "position": "CB",
+          "short_name": "D.Edwards"
+        },
+        {
+          "_id": "HAM144157",
+          "jersey": 17,
+          "pos_group": "LB",
+          "position": "LB",
+          "short_name": "J.Hamilton"
+        },
+        {
+          "_id": "REI144174",
+          "jersey": 43,
+          "pos_group": "LB",
+          "position": "LB",
+          "short_name": "J.Reiger"
+        },
+        {
+          "_id": "KEL156311",
+          "jersey": 98,
+          "pos_group": "SPEC",
+          "position": "K",
+          "short_name": "N.Keller"
+        },
+        {
+          "_id": "TUR156329",
+          "jersey": 4,
+          "pos_group": "RB",
+          "position": "HB",
+          "short_name": "M.Turner"
+        },
+        {
+          "_id": "CLA174698",
+          "jersey": 6,
+          "pos_group": "LB",
+          "position": "LB",
+          "short_name": "S.Clark"
+        }
+      ],
+      "return_participation": [
+        "YON98313",
+        "BLA99230",
+        "LEO99685",
+        "BOY122469",
+        "MEI122488",
+        "WAR122502",
+        "BRY143906",
+        "HAY143918",
+        "LEA146589",
+        "EFF156306",
+        "ALE175356"
+      ],
+      "return_participation_info": [
+        {
+          "_id": "YON98313",
+          "jersey": 32,
+          "pos_group": "DL",
+          "position": "DE",
+          "short_name": "S.Yondjouen"
+        },
+        {
+          "_id": "BLA99230",
+          "jersey": 12,
+          "pos_group": "WR",
+          "position": "WR",
+          "short_name": "D.Blaylock"
+        },
+        {
+          "_id": "LEO99685",
+          "jersey": 2,
+          "pos_group": "TE",
+          "position": "TE",
+          "short_name": "D.Leonard"
+        },
+        {
+          "_id": "BOY122469",
+          "jersey": 9,
+          "pos_group": "WR",
+          "position": "WR",
+          "short_name": "A.Boyd"
+        },
+        {
+          "_id": "MEI122488",
+          "jersey": 33,
+          "pos_group": "LB",
+          "position": "LB",
+          "short_name": "T.Meiguez"
+        },
+        {
+          "_id": "WAR122502",
+          "jersey": 85,
+          "pos_group": "TE",
+          "position": "TE",
+          "short_name": "B.Ward"
+        },
+        {
+          "_id": "BRY143906",
+          "jersey": 15,
+          "pos_group": "DB",
+          "position": "CB",
+          "short_name": "S.Bryant"
+        },
+        {
+          "_id": "HAY143918",
+          "jersey": 11,
+          "pos_group": "WR",
+          "position": "WR",
+          "short_name": "J.Haynes"
+        },
+        {
+          "_id": "LEA146589",
+          "jersey": 6,
+          "pos_group": "WR",
+          "position": "WR",
+          "short_name": "C.Leary"
+        },
+        {
+          "_id": "EFF156306",
+          "jersey": 44,
+          "pos_group": "LB",
+          "position": "LB",
+          "short_name": "K.Efford"
+        },
+        {
+          "_id": "ALE175356",
+          "jersey": 27,
+          "pos_group": "RB",
+          "position": "HB",
+          "short_name": "C.Alexander"
+        }
+      ],
+      "num_in_box": 0,
+      "num_in_box_left": 0,
+      "num_in_box_right": 0,
+      "avg_rush_depth": 0.0,
+      "num_rushers": 0,
+      "num_rushers_left": 0,
+      "num_rushers_right": 0,
+      "num_rushers_solid_penetration": 0,
+      "punt_return_block_type": "punt_return",
+      "punt_rush_twist_scrape": false,
+      "punt_rush_overload": false
+    },
+    "stats": {
+      "summary": {
+        "tfl": false,
+        "completion": false,
+        "result_yds": 40,
+        "tackle_assist_by": [],
+        "kick_return_by": {
+          "jersey": 6,
+          "player_id": "LEA146589",
+          "pos_group": "WR",
+          "position": "WR",
+          "short_name": "C.Leary"
+        }
+      }
+    },
+    "result": {
+      "play_type": "KICKOFF",
+      "play_type_intent": "KICKOFF",
+      "play_success_outcome": false,
+      "gsis_meta": { "scoring": false }
+    },
+    "field_side": "R",
+    "boundary_side": "L",
+    "tracking": true,
+    "vision": true
+  },
+  {
+    "_id":"24136_5047498",
+    "game_id":24136,
+    "play_id":5047498,
+    "pff_GAMEID":24136,
+    "pff_PLAYID":5047498,
+    "play_number":3459,
+    "offense":"georgia-tech",
+    "defense":"louisville",
+    "down":2,
+    "yards_to_go":9,
+    "yardline":"LOUIS 48"
+    ,"ball0":[-5.98,50.28],
+    "los_telemetry":50,
+    "quarter":4,
+    "game_clock":"15:00",
+    "hash":"L",
+    "special_teams":false
+    ,"play_type":"RUSH",
+    "personnel":"12",
+    "formation_base":"2x2","formation_code":"H","receiver_buckets":[0,1,1,2,0,0],"is_penalty":false,"qb_pos":"gun","schedule":{"game_date":"09/01/2023","game_key":"400108","season":2023,"week":1,"season_type":"REG","home":"GATC","visitor":"KYLO"},"situation":{"garbage_time":0,"two_minute":0,"score_differential":5,"time_remaining_qtr":15.0,"time_remaining_half":15.0,"time_remaining_game":15.0,"drive":{"team_drive_number":10,"off_play_in_drive":2,"play_in_game":126,"score":{"poss_score_diff":5,"scoreboard":{"louisville":23,"georgia-tech":28}},"start":{"event":"PUNT_-_RETURN","telemetry_yardline":51},"end":{"event":"MISSED_FG","telemetry_yardline":85},"plays":[{"play_in_drive":1,"down":1,"play_id":"24136_5047494","play_type":"RUSH","result_yards":1,"ytg":10,"personnel_d":"344","personnel_o":"12","first_down":0},{"play_in_drive":2,"down":2,"play_id":"24136_5047498","play_type":"RUSH","result_yards":2,"ytg":9,"personnel_d":"344","personnel_o":"12","first_down":0},{"play_in_drive":3,"down":3,"play_id":"24136_5047502","play_type":"PASS","result_yards":11,"ytg":7,"personnel_d":"254","personnel_o":"11","first_down":1},{"play_in_drive":4,"down":1,"play_id":"24136_5047506","play_type":"RUSH","result_yards":3,"ytg":10,"personnel_d":"254","personnel_o":"11","first_down":0},{"play_in_drive":5,"down":2,"play_id":"24136_5047510","play_type":"PASS","result_yards":13,"ytg":7,"personnel_d":"344","personnel_o":"11","first_down":1},{"play_in_drive":6,"down":1,"play_id":"24136_5047512","play_type":"RUSH","result_yards":1,"ytg":10,"personnel_d":"344","personnel_o":"12","first_down":0},{"play_in_drive":7,"down":2,"play_id":"24136_5047514","play_type":"RUSH","result_yards":1,"ytg":9,"personnel_d":"344","personnel_o":"12","first_down":0},{"play_in_drive":8,"down":3,"play_id":"24136_5047520","play_type":"RUSH","result_yards":2,"ytg":8,"personnel_d":"254","personnel_o":"11","first_down":0}],"prev_play":{"play_in_drive":1,"down":1,"play_id":"24136_5047494","play_type":"RUSH","result_yards":1,"ytg":10,"personnel_d":"344","personnel_o":"12","first_down":0},"next_play":{"play_in_drive":3,"down":3,"play_id":"24136_5047502","play_type":"PASS","result_yards":11,"ytg":7,"personnel_d":"254","personnel_o":"11","first_down":1},"yards":34,"first_downs":2,"yards_penalized":0}},"presnap_o":{"personnel_o_on_play":"12","no_huddle":0,"off_formation_unbalanced":0,"trick_look":1,"bunch":false,"stacks":false,"pistol":"P","shift_motion":true,"qb_on_play":1,"wr_on_play":2,"te_on_play":2,"fb_on_play":0,"rb_on_play":1,"ol_on_play":5,"o_participation":["BEN99708","MAC170073","LEO99685","RUT143929","FRA143913","SCA108785","KIN124329","FUS143914","LEF143921","BLA99230","COO144150"],"players_against_press":[],"players_against_soft_press":["BLA99230"],"players_against_off":[],"rb_split":1.53,"rb_width":1.53,"rb_depth":-6.08,"rb_behind":"rg","rb_rel_qb_y":-2.74,"skill_positions":["R1_TE","R2_TE","L2_WR","L1_WR","BR_HB"],"n_wider_paint":0,"n_on_paint":1,"n_inside_paint":0,"far_split_r":4.74,"far_split_l":11.98,"formation_width":16.72,"receiver_presnap_alignments":{"outside_numbers_left":[],"on_numbers_left":["BLA99230"],"inside_numbers_within_2_yds_left":[],"alley_left":["RUT143929"],"hash_plus_2_yds_left":[],"between_hashes":["BEN99708","LEO99685"],"hash_plus_2_yds_right":[],"alley_right":[],"inside_numbers_within_2_yds_right":[],"on_numbers_right":[],"outside_numbers_right":[]},"on_los_skill_pos_group":["TE","WR"],"avg_ol_split":1.74,"backfield_players":["COO144150"],"backfield_pos_group":["RB"],"num_off_los_te":1,"num_on_los_te":1,"off_los_te":["BEN99708"],"on_los_te":["LEO99685"],"o_participation_info":[{"_id":"BEN99708","jersey":81,"pos_group":"TE","position":"TE","short_name":"L.Benson"},{"_id":"MAC170073","jersey":78,"pos_group":"OL","position":"T","short_name":"E.Mackenny"},{"_id":"LEO99685","jersey":2,"pos_group":"TE","position":"TE","short_name":"D.Leonard"},{"_id":"RUT143929","jersey":8,"pos_group":"WR","position":"WR","short_name":"M.Rutherford"},{"_id":"FRA143913","jersey":72,"pos_group":"OL","position":"C","short_name":"W.Franklin"},{"_id":"SCA108785","jersey":65,"pos_group":"OL","position":"G","short_name":"C.Scaglione"},{"_id":"KIN124329","jersey":10,"pos_group":"QB","position":"QB","short_name":"H.King"},{"_id":"FUS143914","jersey":67,"pos_group":"OL","position":"G","short_name":"J.Fusile"},{"_id":"LEF143921","jersey":75,"pos_group":"OL","position":"T","short_name":"J.Leftwich"},{"_id":"BLA99230","jersey":12,"pos_group":"WR","position":"WR","short_name":"D.Blaylock"},{"_id":"COO144150","jersey":0,"pos_group":"RB","position":"HB","short_name":"T.Cooley"}],"offensive_centroid_at_snap":[-0.41,-0.89],"off_attached_centroid_at_snap":[0.57,-0.06],"off_in_2pt_stance":["RUT143929","KIN124329","BLA99230","COO144150"],"off_in_3pt_stance":["BEN99708","MAC170073","LEO99685","FRA143913","SCA108785","FUS143914","LEF143921"],"rb_form_strength":"strong","ol_width":6.95,"unbalanced_line":false,"skill_players":["BEN99708","LEO99685","RUT143929","BLA99230","COO144150"],"on_los_skill_players":["LEO99685","BLA99230"],"extra_ol_players":[]},"presnap_d":{"d_participation":["BRO99734","RIL97539","WIL122732","THO156312","QUI144173","WAT156327","MIN66051","PUR98138","NEA122278","DAW122703","ALD144145"],"d_participation_info":[{"_id":"BRO99734","jersey":2,"pos_group":"DB","position":"CB","short_name":"J.Brownlee Jr."},{"_id":"RIL97539","jersey":3,"pos_group":"DB","position":"CB","short_name":"Q.Riley"},{"_id":"WIL122732","jersey":15,"pos_group":"LB","position":"LB","short_name":"K.Wilson"},{"_id":"THO156312","jersey":91,"pos_group":"DL","position":"DE","short_name":"T.Thomas"},{"_id":"QUI144173","jersey":34,"pos_group":"LB","position":"LB","short_name":"T.Quinn"},{"_id":"WAT156327","jersey":35,"pos_group":"LB","position":"LB","short_name":"A.Watts"},{"_id":"MIN66051","jersey":5,"pos_group":"DB","position":"S","short_name":"J.Minkins"},{"_id":"PUR98138","jersey":41,"pos_group":"DL","position":"DE","short_name":"R.Puryear"},{"_id":"NEA122278","jersey":27,"pos_group":"DB","position":"S","short_name":"D.Neal"},{"_id":"DAW122703","jersey":93,"pos_group":"DL","position":"DE","short_name":"J.Dawson"},{"_id":"ALD144145","jersey":24,"pos_group":"LB","position":"LB","short_name":"J.Alderman"}],"num_def_in_box":8,"personnel_d_on_play":"344","db_cushion_avg":3.85,"db_soft_press":1,"db_off":1,"db_shade_inside":1,"db_shade_inside_strong":1,"db_shade_outside":0,"db_shade_outside_strong":0,"dl_on_play":3,"lb_on_play":4,"dbs_on_play":4,"db_on_play":0,"de_on_play":3,"cb_on_play":2,"dt_on_play":0,"fs_on_play":0,"ilb_on_play":0,"olb_on_play":0,"mlb_on_play":0,"nt_on_play":0,"s_on_play":2,"ss_on_play":0,"sum_dt_on_play":0,"sum_ilb_on_play":0,"sum_s_on_play":2,"def_front":"OTHER","nose_technique":"1T_RIGHT","n_on_line":5,"n_3pt_stance":3,"n_2pt_stance":8,"def_in_2pt_stance":["BRO99734","RIL97539","WIL122732","QUI144173","WAT156327","MIN66051","NEA122278","ALD144145"],"def_in_3pt_stance":["THO156312","PUR98138","DAW122703"],"db_press":0,"players_in_press":[],"players_in_soft_press":["WAT156327","WIL122732","BRO99734"],"players_in_off":["RIL97539"],"defensive_look":"MAN_LOOK","defensive_look_2":"MAN_LOOK","box_players":["RIL97539","WIL122732","THO156312","QUI144173","WAT156327","MIN66051","PUR98138","DAW122703","ALD144145"]},"play_d":{"stunt":false,"num_dl_drop":0,"blitzdog":false,"middle_of_field_abs_post_snap":"CLOSED","middle_of_field_abs_at_snap":"CLOSED","num_rushers":1,"blitzers":[],"d_blitzers":[],"d_rushers":[{"jersey":15,"lua":"rde","player_id":"WIL122732","pos_group":"LB","position":"LB","rel0":[-4.01,2.48],"short_name":"K.Wilson","rush_gap":"LC","rush_type":"standard"}],"d_stunters":[],"num_pass_coverage":0,"missed_tackles":[],"num_deep_db":1,"lb_covering_rb":false,"pressures":{"pressure_type_exotic":false,"pressure_type_general":"none","pressure_type_positions":[]},"max_penetration":-0.98,"max_penetration_player":"WIL122732","gaps_blitzed":[],"gaps_blitzed_count":{"LD":0,"RB":0,"RD":0,"LB":0,"LA":0,"LC":0,"RC":0,"RA":0},"num_swarm":0,"rushers_left":["WIL122732"],"rushers_right":[],"num_rushers_db":0,"num_rushers_dl":0,"num_rushers_lb":1,"num_rushers_left":1,"num_rushers_right":0,"rushers":["WIL122732"],"force_defender_left":"WIL122732","force_defender_right":"THO156312","stunting_players":[],"num_stunters":0},"play_o":{"oline_slide_direction":"STRONG_LEFT","qb_drop_type":"STRAIGHT","catchable":false,"deep_pass":false,"draw":false,"option":false,"play_action":false,"screen":false,"trick_play":false,"yards_after_contact":0,"check_route":false,"chip_route":false,"pump_fake":false,"qb_moved_off_spot":false,"qb_reset":false,"run_concept":"OUTSIDE ZONE","run_pass_option":false,"num_pass_blockers":0,"run_poa_actual":"LC","run_poa_intended":"LC","rb_pass_pro_v_lb":false,"rb_pass_pro_v_db":false,"rb_backfield_route_v_man":false,"cutback":false,"bounce":false,"run_time_behind_los":2.4,"handoff_type":"HANDOFF","hit_allowed_by":[],"hurry_allowed_by":[],"pressure_allowed_by":[],"sack_allowed_by":[],"player_pff_simple_routes":[],"skill_pff_simple_routes":[],"qb_drop_depth":5.82,"pass_blockers":[]},"stats":{"summary":{"tfl":false,"completion":false,"metrica":{"tackle_location":[-18.34,3.64],"target_double_coverage":false},"ball_carrier":{"jersey":0,"player_id":"COO144150","pos_group":"RB","position":"HB","short_name":"T.Cooley"},"result_yds":2,"tackle_by":{"jersey":91,"player_id":"THO156312","pos_group":"DL","position":"DE","short_name":"T.Thomas"},"tackle_assist_by":[{"jersey":2,"player_id":"BRO99734","pos_group":"DB","position":"CB","short_name":"J.Brownlee Jr."}],"first_contact_by":{
+    "jersey":2,"player_id":"BRO99734","pos_group":"DB","position":"CB","short_name":"J.Brownlee Jr."},"yards_after_contact":0}},"result":{"play_type":"RUSH","play_type_intent":"RUSH","play_success_outcome":false,"gsis_meta":{"scoring":false}},"pass_strength":"L","run_strength":"R","skill_r_qty":2,"skill_l_qty":2,"num_backfield":1,"num_tight":3,"num_slot":1,"num_wide":0,"condensed_formation":true,"attached_formation":false,"formation":{"pass_strength":"L","run_strength":"R","formation_base":"2x2"},"o_paths":[{"passes_homography_qc":true,"pff_player_id":99708,"player":{"_id":"BEN99708","jersey":81,"pos_group":"TE","position":"TE","short_name":"L.Benson"}}
+  }
+]

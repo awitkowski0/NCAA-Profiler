@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
-import { List, ListItem, ListItemText, Button, Box } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { List, ListItem, ListItemText } from '@mui/material';
+import { getReports } from '../services/authService';
+import { Report } from '../types/reports';
 
-const Reports: React.FC = () => {
-  const [reports, setReports] = useState<string[]>(['Report 1', 'Report 2']);
+const Reports = () => {
+  const [reports, setReports] = useState<Report[]>([]);
 
-  const addReport = () => {
-    const newReport = `Report ${reports.length + 1}`;
-    setReports([...reports, newReport]);
-  };
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const reportsData = await getReports();
+        setReports(reportsData);
+      } catch (error) {
+        console.error("Error fetching reports:", error);
+      }
+    };
+
+    fetchReports();
+  }, []);
 
   return (
     <div>
-      <h1>Reports</h1>
-      <Box>
-        <Button variant="contained" onClick={addReport}>Add Report</Button>
-      </Box>
+      <h2>My Reports</h2>
       <List>
-        {reports.map((report, index) => (
-          <ListItem button key={index}>
-            <ListItemText primary={report} />
+        {reports.map((report: Report) => (
+          <ListItem 
+            button 
+            key={report.id} 
+            component={NavLink} 
+            to={`/reports/${report.id}`}
+          >
+            <ListItemText 
+              primary={`Report ${report.id}`} 
+              secondary={report.summary}
+            />
           </ListItem>
         ))}
       </List>
@@ -27,3 +43,4 @@ const Reports: React.FC = () => {
 };
 
 export default Reports;
+

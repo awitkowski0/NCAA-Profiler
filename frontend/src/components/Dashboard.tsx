@@ -1,11 +1,24 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { Box, CssBaseline, Drawer, List, ListItem, ListItemText, Toolbar, Container } from '@mui/material';
+import React, { useContext } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Box, CssBaseline, Drawer, List, ListItem, ListItemText, Toolbar, Container, Button } from '@mui/material';
 import { Outlet } from 'react-router-dom';
+import { logout } from '../services/authService'; // Assuming you have a logout function
+import { AuthContext } from '../context/AuthContext';
 
 const drawerWidth = 240;
 
 const Dashboard: React.FC = () => {
+  const navigate = useNavigate();
+  const authContext = useContext(AuthContext);
+
+  const handleLogout = () => {
+    if (authContext) {
+      authContext.logout();
+    }
+    logout(); // Clears tokens and logs the user out
+    navigate('/');
+  };
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -18,9 +31,9 @@ const Dashboard: React.FC = () => {
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }}>
+        <Box sx={{ overflow: 'auto', flexGrow: 1 }}>
           <List>
-            {['Home', 'Teams', 'Seasons', 'Reports'].map((text) => (
+            {['Home', 'Reports'].map((text) => (
               <ListItem 
                 button 
                 key={text} 
@@ -35,6 +48,11 @@ const Dashboard: React.FC = () => {
               </ListItem>
             ))}
           </List>
+        </Box>
+        <Box sx={{ padding: 2 }}>
+          <Button variant="contained" color="secondary" onClick={handleLogout}>
+            Logout
+          </Button>
         </Box>
       </Drawer>
 

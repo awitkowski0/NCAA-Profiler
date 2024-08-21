@@ -6,6 +6,9 @@ class UserCreate(BaseModel):
     username: str
     password: str
 
+class UserResponse(BaseModel):
+    username: str
+
 class RequestDetails(BaseModel):
     username:str
     password:str
@@ -22,20 +25,14 @@ class TokenCreate(BaseModel):
     created_date:datetime.datetime
 
 class ReportCreate(BaseModel):
-    user_id: str
     player_id: Optional[str] = None
     team_id: Optional[str] = None
     game_id: Optional[str] = None
     play_id: Optional[str] = None
-    grade: float
-    summary: str
+    grade: Optional[float] = None
+    summary: Optional[str] = None
     notes: Optional[str] = None
 
 
 class Report(ReportCreate):
     id: int
-    created_at: datetime.datetime
-    updated_at: datetime.datetime
-
-    class Config:
-        orm_mode = True
