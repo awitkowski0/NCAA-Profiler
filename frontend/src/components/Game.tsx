@@ -47,7 +47,7 @@ export const GameComponent: React.FC = () => {
   );
 
   const handleBackClick = () => {
-    navigate("/season/");
+    navigate("/home/");
   };
 
   const handleCreateReportClick = () => {
