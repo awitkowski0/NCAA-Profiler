@@ -38,8 +38,8 @@ async def get_team_data(team_id: str):
             'https://wire.telemetry.fm/ncaa/teams/', 
             params=query_params, 
             headers=headers, 
-            stream=True
-        ) as response:
+            stream=True, 
+        timeout=60) as response:
             if response.status_code != 200:
                 raise HTTPException(status_code=response.status_code, detail=response.text)
 
@@ -80,8 +80,8 @@ async def get_game_data(game_id: int):
         'https://wire.telemetry.fm/ncaa/plays/game-id', 
         params=query_params, 
         headers=headers, 
-        stream=True
-    ) as response:
+        stream=True, 
+    timeout=60) as response:
         for chunk in response.iter_content(chunk_size=chunk_size):
             stream.write(chunk)
     
@@ -114,7 +114,7 @@ async def get_player_data(player_id: str):
     headers = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
     query_params = {'player_id': player_id}
 
-    response = requests.get('https://wire.telemetry.fm/ncaa/players/', params=query_params, headers=headers)
+    response = requests.get('https://wire.telemetry.fm/ncaa/players/', params=query_params, headers=headers, timeout=60)
     if response.status_code != 200:
         raise HTTPException(status_code=response.status_code, detail=response.text)
     
@@ -131,7 +131,7 @@ async def get_season_data(year: int):
     else:
         headers = {'Authorization': f'Bearer {ACCESS_TOKEN}'}
         query_params = {'season': year}
-        response = requests.get('https://wire.telemetry.fm/ncaa/schedules/by-season/', params=query_params, headers=headers)
+        response = requests.get('https://wire.telemetry.fm/ncaa/schedules/by-season/', params=query_params, headers=headers, timeout=60)
         
         if response.status_code != 200:
             raise HTTPException(status_code=response.status_code, detail=response.text)
